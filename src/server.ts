@@ -1,10 +1,4 @@
-import fastify from "fastify";
-
-const app = fastify();
-
-app.get("/", async () => {
-  return { hello: "world" };
-});
+import { app } from "./app";
 
 app
   .listen({
