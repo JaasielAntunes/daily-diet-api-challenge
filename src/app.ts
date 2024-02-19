@@ -1,7 +1,6 @@
 import fastify from "fastify";
+import { usersRoutes } from "./routes/users";
 
 export const app = fastify();
 
-app.get("/", () => {
-  return { hello: "world" };
-});
+app.register(usersRoutes, { prefix: "users" });
