@@ -26,7 +26,7 @@ export async function usersRoutes(app: FastifyInstance) {
     const userEmail = await knex("users").where({ email }).first();
 
     if (userEmail) {
-      return res.status(409).send({ error: "Este email já existe!" });
+      return res.status(400).send({ error: "Este email já existe!" });
     }
 
     await knex("users").insert({
