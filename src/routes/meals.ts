@@ -102,4 +102,27 @@ export async function mealsRoutes(app: FastifyInstance) {
         .send({ message: "Refeição atualizada com sucesso!", meal });
     },
   );
+
+  app.delete(
+    "/:mealId",
+    { preHandler: [checkSessionIdExists] },
+    async (req, res) => {
+      const getMealParams = z.object({
+        mealId: z.string().uuid(),
+      });
+
+      const { mealId } = getMealParams.parse(req.params);
+
+      const meal = await knex("meals").where({ id: mealId }).first();
+
+      if (!meal) {
+        return res.status(404).send({ error: "Refeição não encontrada!" });
+      }
+
+      await knex("meals").where({ id: mealId }).delete();
+      return res
+        .status(200)
+        .send({ message: "Refeição excluída com sucesso!" });
+    },
+  );
 }
