@@ -125,4 +125,51 @@ export async function mealsRoutes(app: FastifyInstance) {
         .send({ message: "Refeição excluída com sucesso!" });
     },
   );
+
+  app.get(
+    "/metrics",
+    { preHandler: [checkSessionIdExists] },
+    async (req, res) => {
+      const metricsOnDiet = await knex("meals")
+        .where({
+          user_id: req.user?.id,
+          is_on_diet: true,
+        })
+        .count("id", { as: "total" })
+        .first();
+
+      const metricsOffDiet = await knex("meals")
+        .where({ user_id: req.user?.id, is_on_diet: false })
+        .count("id", { as: "total" })
+        .first();
+
+      const totalMeals = await knex("meals")
+        .where({ user_id: req.user?.id })
+        .orderBy("date", "desc");
+
+      const { bestOnDietSequence } = totalMeals.reduce(
+        (acc, meal) => {
+          if (meal.is_on_diet) {
+            acc.currentSequence += 1;
+          } else {
+            acc.currentSequence = 0;
+          }
+
+          if (acc.currentSequence > acc.bestOnDietSequence) {
+            acc.bestOnDietSequence = acc.currentSequence;
+          }
+
+          return acc;
+        },
+        { bestOnDietSequence: 0, currentSequence: 0 },
+      );
+
+      return res.send({
+        "Total de refeições": totalMeals.length.toString(),
+        "Total de refeições na dieta": metricsOnDiet?.total.toString(),
+        "Total de refeições fora da dieta": metricsOffDiet?.total.toString(),
+        "Melhor sequência na dieta": bestOnDietSequence.toString(),
+      });
+    },
+  );
 }
