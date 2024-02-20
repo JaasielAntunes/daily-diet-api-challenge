@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { knex } from "../database";
 import { randomUUID } from "node:crypto";
+import { checkSessionIdExists } from "../middlewares/check-session-id-exists";
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post("/", async (req, res) => {
@@ -15,7 +16,7 @@ export async function usersRoutes(app: FastifyInstance) {
     if (!sessionId) {
       sessionId = randomUUID();
 
-      res.cookie("sessionId", sessionId, {
+      res.setCookie("sessionId", sessionId, {
         path: "/",
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       });
@@ -39,12 +40,17 @@ export async function usersRoutes(app: FastifyInstance) {
     return res.status(201).send("Usuário cadastrado com sucesso!");
   });
 
-  app.get("/", async (req, res) => {
+  app.get("/", { preHandler: [checkSessionIdExists] }, async (req, res) => {
     const users = await knex("users").select();
+
+    if (users.length === 0) {
+      return res.status(404).send({ error: "Nenhum usuário encontrado!" });
+    }
+
     return res.status(200).send({ users });
   });
 
-  app.get("/:id", async (req, res) => {
+  app.get("/:id", { preHandler: [checkSessionIdExists] }, async (req, res) => {
     const getUserParamsSchema = z.object({
       id: z.string().uuid(),
     });
