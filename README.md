@@ -1,5 +1,5 @@
 <h1 align="center">
-  Aplicação Backend desenvolvida durante a Trilha NodeJS no evento NLW Expert da Rocketseat em 2024.
+  Aplicação Backend desenvolvida durante a formação Node.JS na plataforma da Rocketseat.
 </h1>
 
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
