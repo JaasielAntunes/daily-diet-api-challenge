@@ -1,5 +1,5 @@
 <h1 align="center">
-  Aplicação Backend desenvolvida durante a formação Node.JS na plataforma da Rocketseat.
+  Aplicação back-end desenvolvida durante a formação Node.JS na plataforma da Rocketseat.
 </h1>
 
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
