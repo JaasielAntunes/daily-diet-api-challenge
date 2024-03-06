@@ -95,6 +95,77 @@ $ npm run dev
 
 ---
 
+## 💻 Rotas HTTP
+
+### POST `/users`
+
+Cadastrar usuário
+
+#### Corpo da requisição
+
+```json
+{
+    "name": "José",
+    "email": "jose@gmail.com"
+}
+```
+
+### POST `/meals`
+
+Cadastrar refeição
+
+#### Corpo da requisição
+
+```json
+{
+  "name": "Café da Manhã",
+  "description": "Cuscuz, Iame e Frango Grelhado",
+  "isOnDiet": true,
+  "date": 20022024
+}
+```
+
+### PUT `/meals/:mealId`
+
+Atualizar uma refeição
+
+#### Corpo da requisição
+
+```json
+{
+  "name": "Almoço",
+  "description": "Batata doce, ovo cozido e salada",
+  "isOnDiet": true,
+  "date": 20022024
+}
+```
+
+### GET `/users`
+
+Retorna todas os usuários cadastrados.
+
+### GET `/meals`
+
+Retorna todas as refeições cadastradas.
+
+### GET `/meals/metrics`
+
+Retorna as métricas da dieta realizada.
+
+### GET `/users/:userId`
+
+Retorna um usuário específico.
+
+### GET `/users/:mealId`
+
+Retorna uma refeição específica.
+
+### DELETE `/users/:mealId`
+
+Deleta uma refeição específica.
+
+---
+
 ## ✅ Sugestão
 
 - Utilize o Postman ou Insomnia para testar as requisições.
