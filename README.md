@@ -1,5 +1,5 @@
 <h1 align="center">
-  Aplicação back-end desenvolvida durante a formação Node.JS na plataforma da Rocketseat.
+  Aplicação back-end desenvolvida durante a formação Node.JS na plataforma da <a href="https://app.rocketseat.com.br/home">Rocketseat</a>.
 </h1>
 
 <p align="center">
