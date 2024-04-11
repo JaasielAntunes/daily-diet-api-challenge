@@ -45,7 +45,7 @@ cadastrando as refeições feitas.
 
 ---
 
-## 💻 Tecnologias utilizadas
+## 💻 Tecnologias
 
 - Fastify
 - Zod
