@@ -49,6 +49,7 @@ cadastrando as refeições feitas.
 
 - Fastify
 - Zod
+- JavaScript
 - Typescript
 - SQLite
 - ESLint
